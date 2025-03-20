@@ -36,6 +36,10 @@ AllowUsers devops_user
 sudo systemctl restart sshd
 ```
 
+![alt text](task_images/task1-a.png)
+![alt text](task_images/task1-b.png) 
+![alt text](task_images/task1-c.png) 
+
 ---
 
 ## 🔹 2️⃣ File & Directory Permissions
@@ -58,6 +62,7 @@ sudo chmod 640 /devops_workspace/project_notes.txt
 ls -l /devops_workspace/
 ```
 
+![alt text](task_images/task2.png)
 ---
 
 ## 🔹 3️⃣ Log File Analysis with AWK, Grep & Sed
@@ -85,6 +90,8 @@ sed 's \([[:digit:]]\+\(\.\|-\)\)\{3\}[[:digit:]]\+ [REDACTED] g' app.log | head
 awk '{print $6}' app.log | sort | uniq -c | sort -nr | head -10
 ```
 
+![alt text](task_images/task3_a.png) 
+![alt text](task_images/task3_b.png)
 ---
 
 
