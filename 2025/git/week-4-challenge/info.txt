@@ -1,2 +1,3 @@
-My Name: Pramod Kumar
-Introduction: I am participating in the 90 Days of DevOps challenge. This challenge is given by Shubham Londhe sir.
+me: Pramod Kumar
+Introduction: I am learning DevOps and working on Git branching strategies.
+
