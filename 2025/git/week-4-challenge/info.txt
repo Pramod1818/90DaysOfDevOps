@@ -1,2 +1,3 @@
 My Name: Pramod Kumar
-Introduction: This is my journey in the 90 Days of DevOps challenge, learning hands-on with Junnon Batch 9.
+Introduction: I am participating in the 90 Days of DevOps challenge, learning hands-on with Junnon Batch 9 and exploring Git branching strategies.
+
