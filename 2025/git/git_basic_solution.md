@@ -20,6 +20,7 @@
 ---
 Screenshots
 ![alt text](task_images/1/1_a.png) 
+
 ![alt text](task_images/1/1_b.png)
 
 ### Task 2: Initialize a Local Repository and Create a File
@@ -302,6 +303,5 @@ Screenhots:
 
 ## Summary
 - **Completed Git and GitHub tasks**: cloning, branching, committing, pushing, and merging.
-- **Documented the process** in `git_basic_solution.md`.
 
 
