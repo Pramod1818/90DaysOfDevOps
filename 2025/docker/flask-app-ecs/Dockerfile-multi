@@ -1,0 +1,27 @@
+# Build satge, Stage-1
+FROM python:3.9-slim AS builder
+WORKDIR /app
+
+# Copy dependency file
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt --target=/app/deps
+
+# Copy application source code
+COPY . .
+
+# Final Distroless stage, Stage-2
+FROM gcr.io/distroless/python3-debian11
+WORKDIR /app
+
+# Copy dependencies from the builder stage
+COPY --from=builder /app .
+
+# Environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH="/app/deps"
+
+# Expose port
+EXPOSE 80
+
+# Run the application
+CMD ["python", "run.py"]
