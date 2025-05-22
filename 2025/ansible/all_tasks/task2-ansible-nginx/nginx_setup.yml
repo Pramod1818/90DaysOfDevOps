@@ -1,0 +1,53 @@
+---
+- name: Robust Nginx Installation and Configuration
+  hosts: all
+  become: true
+  vars:
+    nginx_ports:
+      - 80
+      - 443
+    server_name: "{{ inventory_hostname }}"
+    default_root: /var/www/html
+
+  tasks:
+
+    - name: Install Nginx asynchronously
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+      async: 300
+      poll: 0
+      register: nginx_async
+
+    - name: Wait for Nginx installation to finish
+      async_status:
+        jid: "{{ nginx_async.ansible_job_id }}"
+      register: install_result
+      until: install_result.finished
+      retries: 5
+      delay: 10
+
+    - name: Fail if Nginx install failed
+      fail:
+        msg: "Nginx installation failed"
+      when: install_result.rc is defined and install_result.rc != 0
+
+    - name: Create Nginx custom config from template
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify: Restart Nginx
+
+    - name: Ensure Nginx is running and enabled
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+

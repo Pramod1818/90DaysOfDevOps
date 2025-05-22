@@ -1,0 +1,68 @@
+- name: Install Python3 pip
+  apt:
+    name: python3-pip
+    state: present
+  become: true
+
+- name: Install PyMySQL system package
+  apt:
+    name: python3-pymysql
+    state: present
+  become: true
+
+- name: Install MySQL Server
+  apt:
+    name: mysql-server
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Start and enable MySQL
+  service:
+    name: mysql
+    state: started
+    enabled: true
+  become: true
+
+- name: Create ansible admin user (once manually or in setup play)
+  mysql_user:
+    name: ansibleadmin
+    password: secretpass
+    priv: 'sampledb.*:ALL'
+     # priv: '*.*:ALL,GRANT'
+    host: '%' #connect from any host below one from spcified ony
+      #    host: localhost
+    state: present
+    login_user: root
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  become: true
+
+- name: Create DB and user
+  mysql_db:
+    name: sampledb
+    state: present
+    login_user: ansibleadmin
+    login_password: secretpass
+    login_host: localhost 
+  become: true
+
+- name: Write init.sql
+  copy:
+    dest: /tmp/init.sql
+    content: |
+      CREATE TABLE IF NOT EXISTS messages (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          text VARCHAR(255) NOT NULL
+      );
+      INSERT INTO messages (text) VALUES ('Hello from MySQL database!');
+  become: true
+
+- name: Import initial schema (message)  into sampledb
+  mysql_db:
+    name: sampledb
+    state: import
+    target: /tmp/init.sql
+    login_user: ansibleadmin
+    login_password: secretpass
+    login_host: localhost
+  become: true

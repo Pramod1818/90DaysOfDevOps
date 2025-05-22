@@ -1,0 +1,15 @@
+- name: Configure DB
+  hosts: database
+  roles:
+    - db
+
+- name: Configure App
+  hosts: backend
+  roles:
+    - app
+
+- name: Configure Frontend
+  hosts: frontend
+  roles:
+    - nginx
+

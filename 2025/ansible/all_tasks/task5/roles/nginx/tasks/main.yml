@@ -1,0 +1,28 @@
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Copy Nginx config
+  copy:
+    dest: /etc/nginx/sites-available/default
+    content: |
+      server {
+          listen 80;
+          location / {
+              proxy_pass http://{{ hostvars['backend'].ansible_host }}:5000;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+          }
+      }
+  notify: Restart Nginx
+  become: true
+
+- name: Ensure Nginx is started
+  service:
+    name: nginx
+    state: started
+    enabled: true
+  become: true

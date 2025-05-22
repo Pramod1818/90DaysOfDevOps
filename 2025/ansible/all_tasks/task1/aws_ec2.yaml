@@ -1,0 +1,10 @@
+plugin: aws_ec2
+regions:
+  - us-east-1  # Change to your AWS region
+filters:
+  instance-state-name: running
+hostnames:
+  - private-ip-address
+keyed_groups:
+  - key: tags.Name
+    prefix: tag
