@@ -1,0 +1,23 @@
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    server {
+        listen 80 default_server;
+        server_name _;
+
+        location / {
+            return 200 '{{ welcome_message | default("hi") }}';
+            add_header Content-Type text/html;
+        }
+    }
+}
+

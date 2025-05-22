@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multi-Environment Setup with Terraform & Ansible</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background-color: #2c3e50;
+      padding: 1rem;
+      color: white;
+      text-align: center;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    pre {
+      background: #f0f0f0;
+      padding: 1rem;
+      overflow-x: auto;
+      border-radius: 5px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #ecf0f1;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Multi-Environment Setup with Terraform & Ansible</h1>
+  <h1>prd Environment</h1>
+  <p>Provisioning and Configuration Automation in AWS</p>
+</header>
+
+<main>
+  <section>
+    <h2>🌍 Real-World Scenario</h2>
+    <p>This project demonstrates how to integrate <strong>Terraform</strong> and <strong>Ansible</strong> to manage AWS infrastructure across multiple environments — <code>dev</code>, <code>staging</code>, and <code>prod</code>.</p>
+  </section>
+
+  <section>
+    <h2>🚀 Terraform: Infrastructure as Code</h2>
+    <ul>
+      <li>Create environment-specific variable files like <code>dev.tfvars</code>, <code>staging.tfvars</code>, and <code>prod.tfvars</code>.</li>
+      <li>Provision EC2 instances in each environment using the command:</li>
+    </ul>
+    <pre><code>terraform apply -var-file="dev.tfvars"</code></pre>
+  </section>
+
+  <section>
+    <h2>🔧 Ansible: Configuration Management</h2>
+    <ul>
+      <li>Create an Ansible inventory for each environment based on Terraform outputs.</li>
+      <li>Use a playbook like <code>nginx_setup.yml</code> to install and configure Nginx on provisioned servers.</li>
+    </ul>
+    <pre><code> ansible-playbook -i inventories/dev  playbooks/install_nginx.yml</code></pre>
+  </section>
+
+  <section>
+    <h2>📘 Key Takeaways</h2>
+    <ul>
+      <li>Use Terraform for consistent, repeatable infrastructure provisioning.</li>
+      <li>Use Ansible for agentless configuration and software deployment.</li>
+      <li>Maintain isolated configurations per environment for better control and security.</li>
+      <li>Automate end-to-end infrastructure setup for faster and error-free deployments.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Created for the 90 Days of DevOps Challenge | Week 9: Bonus Task-6</p>
+</footer>
+
+</body>
+</html>
